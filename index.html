@@ -23,6 +23,16 @@
     select, button {
       color: #4d3069;
     }
+    .contador {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      background-color: #da6863;
+      color: white;
+      display: inline-block;
+      padding: 0.4rem 1rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
   </style>
 </head>
 <body class="min-h-screen p-4">
@@ -58,9 +68,14 @@
         ☕ Invitanos un Cafecito
       </a>
     </div>
+
+    <!-- Contador de visitas -->
+    <div class="text-center mt-10">
+      <span class="contador">Visitas: <span id="contador">...</span></span>
+    </div>
   </div>
 
-  <!-- Script -->
+  <!-- Scripts -->
   <script>
     const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRyqgjE9sIIl7fEjrmVzsQo7lCc8w6Nw4EKqcbrqsT-gUDXt_YHn4tHIZJJ7eAEr9JNlJvTW16r7Fyk/pub?output=csv";
     let datos = [];
@@ -183,6 +198,17 @@
         alert("Texto copiado al portapapeles. También se abrió WhatsApp si está disponible.");
       });
     }
+
+    // Contador de visitas
+    fetch("https://script.google.com/macros/s/AKfycbxbourZ_L9QNmwuAgMhKSBr3fyOfVcQkSyeCNarDcQgJHugZSktyZ7KlASlYnVm2EkCcg/exec")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("contador").textContent = data;
+      })
+      .catch(error => {
+        console.error("Error al obtener el contador:", error);
+        document.getElementById("contador").textContent = "Error";
+      });
   </script>
 </body>
 </html>
